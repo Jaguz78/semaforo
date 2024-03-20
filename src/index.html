@@ -4,10 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semaforo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hola mundo</h1>
+    <!--agregar atributo hidden para ocultar la etiqueta -->
+    
+    <!--Header solo aparece en la pantalla principal
+        Contiene los inputs del tiempo --> 
+    <header >
+        <h1>Establecer tiempos:</h1>
+        <div class="inputDiv">
+            <input class="inputVerde" value="00:00:00" type="time" step="1">
+            <input class="inputAmarillo" value="00:00:00" type="time" step="1">
+            <input class="inputRojo" value="00:00:00" type="time" step="1">
+        </div>
+    </header>
+
+    <div>
+        <!--Mensaje con instruccion para el reinicio-->
+        <p class="R">Presiona "R" para reiniciar</p>
+    </div>
+
+    <!--Main contiene la etiqueta que mostrará el temporizador-->
+    <main>
+        <p class="temporizador">00:00:00</p>
+
+        <!--mensaje con instrucciones sobre "Empezar",  "Pausar" o "Continuar", el contenido varía-->
+        <p class="espacio">Presiona "Enter" para empezar</p>        
+    </main>
+
     <script src="renderer.js"></script>
 </body>
 </html>

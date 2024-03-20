@@ -1,3 +1,80 @@
-h1 {
-    background-color: aqua;
+body, input{
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+
+    color: #636E72;
+    background-color: #2D3436;
+
+    /*cambia segun el tiempo:
+    verde
+    color: #8AE17D;             
+    background-color: #44BD32;
+
+    amarillo 
+    color: #C6A11E;                    
+    background-color: #F9CA24;
+
+    rojo
+    color: #A43B21;             
+    background-color: #E84118;
+    */
+    
 }
+
+h1 {
+    color: #F5F6FA;
+    margin: 3% 5% 0 ;
+}
+.R{    
+    margin: 5% 5% 0 ;
+    text-align: end;
+    font-size: 1em;
+}
+
+.inputDiv{    
+    width: 100%;
+    margin: 2em auto;
+    display: flex;
+    justify-content: center;
+}
+.inputVerde, .inputAmarillo, .inputRojo{
+    font-size:100%;
+    text-align: center;
+    background-color: #F5F6FA; 
+
+    width: 20%;
+    height: 100%;
+    padding: 1%;
+    margin: 2% auto;
+
+    border-radius: 10px;
+    border-style: solid;
+    border-bottom: none;
+    border-left:none;
+    border-right:none;
+        
+    border-top-width: 15px;
+}
+.inputVerde{
+    border-top-color: #44BD32 ;
+}
+.inputAmarillo{
+    border-top-color: #F9CA24 ;
+}
+.inputRojo{
+    border-top-color: #E84118 ;
+}
+
+main .temporizador{
+    margin:10%;
+    text-align: center;
+    font-size: 6em;
+}
+main p{  
+    margin-bottom: 5%;  
+    text-align: center;
+    font-size: 1em;
+}
+
+
