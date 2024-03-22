@@ -1,16 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
+    viejoVerde = localStorage.getItem('inputVerde');
+    console.log(viejoVerde)
+    viejoAmarillo = localStorage.getItem('inputAmarillo')
+    console.log(viejoAmarillo)
+    viejoRojo = localStorage.getItem('inputRojo')
+    console.log(viejoRojo)
 
     document.addEventListener('keypress', function(event){
         
         if (event.key === 'Enter'){
             var inputVerde = document.getElementsByClassName('inputVerde');
             var valorInputVerde = inputVerde[0].value
+            console.log(valorInputVerde)
             
             var inputAmarillo = document.getElementsByClassName('inputAmarillo');
             var valorInputAmarillo = inputAmarillo[0].value
+            console.log(valorInputAmarillo)
             
             var inputRojo = document.getElementsByClassName('inputRojo');
             var valorInputRojo = inputRojo[0].value;
+            console.log(valorInputRojo)
             
 
             var amarillo = valorInputAmarillo.split(':')
@@ -28,14 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (nAmarillo < nVerde) {
                     if (nVerde > nRojo) {
                         //Si todos los input son menores que el input verde pasa esto
-                        
-                        const gVerde = inputVerde.value;
-                        const gAmarillo = inputAmarillo.value;
-                        const gRojo = inputRojo.value
-                        localStorage.setItem('inputVerde', gVerde);
-                        localStorage.setItem('inputAmarillo', gAmarillo);
-                        localStorage.setItem('inputRojo', gRojo);
-
+                        localStorage.setItem('inputVerde', valorInputVerde);
+                        localStorage.setItem('inputAmarillo', valorInputAmarillo);
+                        localStorage.setItem('inputRojo', valorInputRojo);
                     }
                     //Si los input son mayores que el input verde o entre sí, salta error
                     else {
@@ -51,9 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         else if (event.key === 'R') {
-            inputAmarillo.value = "00:00:00"
-            inputRojo.value = "00:00:00"
-            inputVerde.value = "00:00:00"
+            var inputVerde = document.getElementsByClassName('inputVerde');
+            inputVerde.innerHTML = '00:00:00'
+            
         }
     })
     
