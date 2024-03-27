@@ -5,7 +5,88 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(viejoAmarillo)
     viejoRojo = localStorage.getItem('inputRojo')
     console.log(viejoRojo)
+    var intervaloVerde, intervaloAmarillo, intervaloRojo;
+    var tiempoRestante = 0;
+    var temporizadorPausado = false;
+    var horaPausa;
 
+    function iniciarTemporizador(verde, amarillo, rojo) {
+        var temporizador = document.querySelector('.temporizador');
+        
+        
+        //Actualizar el temporizador
+        function actualizarTemporizador(tiempo) {
+            var horas = tiempo.getHours().toString().padStart(2, '0');
+            var minutos = tiempo.getMinutes().toString().padStart(2, '0');
+            var segundos = tiempo.getSeconds().toString().padStart(2, '0');
+            temporizador.textContent = horas + ':' + minutos + ':' + segundos;
+        }
+    
+        //Temporizador verde
+        intervaloVerde = setInterval(function() {
+            verde.setSeconds(verde.getSeconds() - 1);
+            actualizarTemporizador(verde);
+            if (temporizador.textContent === "00:00:00") {
+                clearInterval(intervaloVerde);
+                //Temporizador amarillo
+                intervaloAmarillo = setInterval(function() {
+                    amarillo.setSeconds(amarillo.getSeconds() - 1);
+                    actualizarTemporizador(amarillo);
+                    if (temporizador.textContent === "00:00:00") {
+                        clearInterval(intervaloAmarillo);
+                        //Temporizador rojo
+                        intervaloRojo = setInterval(function() {
+                            rojo.setSeconds(rojo.getSeconds() - 1);
+                            actualizarTemporizador(rojo);
+                            if (temporizador.textContent === "00:00:00") {
+                                clearInterval(intervaloRojo);
+                                temporizador.textContent = '00:00:00';
+                            }
+                        }, 1000);
+                    }
+                }, 1000);
+            }
+        }, 1000);
+        
+    }
+
+    
+    function pausarTemporizador() {
+        // Detener el temporizador
+        clearInterval(intervaloVerde);
+        clearInterval(intervaloAmarillo);
+        clearInterval(intervaloRojo);
+
+        // Actualizar el estado del temporizador
+        temporizadorPausado = true;
+        tiempoRestante = obtenerTiempoRestante();
+        horaPausa = new Date();
+
+        // Mostrar el tiempo pausado en el HTML
+        var tiempoPausado = document.querySelector('.temporizador').textContent;
+        document.querySelector('.temporizador').textContent = tiempoPausado;
+    }
+
+    function reanudarTemporizador() {
+        temporizadorPausado = false; // Actualizar el estado del temporizador
+        iniciarTemporizador(obtenerNuevoTiempo(tiempoRestante), new Date(), new Date()); // Reiniciar el temporizador con nuevos valores
+        
+    
+    }
+
+    function obtenerTiempoRestante() {
+        var tiempoActual = document.querySelector('.temporizador').textContent;
+        var tiempo = tiempoActual.split(':');
+        return (parseInt(tiempo[0]) * 3600) + (parseInt(tiempo[1]) * 60) + parseInt(tiempo[2]);
+    }
+    
+    function obtenerNuevoTiempo(tiempoRestante) {
+        var horas = Math.floor(tiempoRestante / 3600);
+        var minutos = Math.floor((tiempoRestante % 3600) / 60);
+        var segundos = tiempoRestante % 60;
+        return new Date(0, 0, 0, horas, minutos, segundos);
+    }
+    
     document.addEventListener('keypress', function(event){
         
         if (event.key === 'Enter'){
@@ -60,45 +141,14 @@ document.addEventListener('DOMContentLoaded', function() {
             inputVerde.innerHTML = '00:00:00'
             
         }
+        else if (event.key === ' '){
+            if (temporizadorPausado) {
+                reanudarTemporizador();
+            } else {
+                pausarTemporizador();
+            }
+        }
     })
     
 })
 
-function iniciarTemporizador(verde, amarillo, rojo) {
-    var temporizador = document.querySelector('.temporizador');
-    var intervaloVerde, intervaloAmarillo, intervaloRojo;
-    
-    //Actualizar el temporizador
-    function actualizarTemporizador(tiempo) {
-        var horas = tiempo.getHours().toString().padStart(2, '0');
-        var minutos = tiempo.getMinutes().toString().padStart(2, '0');
-        var segundos = tiempo.getSeconds().toString().padStart(2, '0');
-        temporizador.textContent = horas + ':' + minutos + ':' + segundos;
-    }
-
-    //Temporizador verde
-    intervaloVerde = setInterval(function() {
-        verde.setSeconds(verde.getSeconds() - 1);
-        actualizarTemporizador(verde);
-        if (temporizador.textContent === "00:00:00") {
-            clearInterval(intervaloVerde);
-            //Temporizador amarillo
-            intervaloAmarillo = setInterval(function() {
-                amarillo.setSeconds(amarillo.getSeconds() - 1);
-                actualizarTemporizador(amarillo);
-                if (temporizador.textContent === "00:00:00") {
-                    clearInterval(intervaloAmarillo);
-                    //Temporizador rojo
-                    intervaloRojo = setInterval(function() {
-                        rojo.setSeconds(rojo.getSeconds() - 1);
-                        actualizarTemporizador(rojo);
-                        if (temporizador.textContent === "00:00:00") {
-                            clearInterval(intervaloRojo);
-                            temporizador.textContent = '00:00:00';
-                        }
-                    }, 1000);
-                }
-            }, 1000);
-        }
-    }, 1000);
-}
