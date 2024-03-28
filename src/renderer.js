@@ -86,6 +86,25 @@ document.addEventListener('DOMContentLoaded', function() {
         var segundos = tiempoRestante % 60;
         return new Date(0, 0, 0, horas, minutos, segundos);
     }
+	
+	function reiniciarTemporizador() {
+		clearInterval(intervaloVerde);
+		clearInterval(intervaloAmarillo);
+		clearInterval(intervaloRojo);
+
+		var verdeString = localStorage.getItem('inputVerde');
+		var amarilloString = localStorage.getItem('inputAmarillo');
+		var rojoString = localStorage.getItem('inputRojo');
+
+		var verde = verdeString ? new Date(0, 0, 0, ...verdeString.split(':')) : new Date();
+		var amarillo = amarilloString ? new Date(0, 0, 0, ...amarilloString.split(':')) : new Date();
+		var rojo = rojoString ? new Date(0, 0, 0, ...rojoString.split(':')) : new Date();
+
+		iniciarTemporizador(verde, amarillo, rojo);
+
+		tiempoRestante = 0;
+		temporizadorPausado = false;
+	}
     
     document.addEventListener('keypress', function(event){
         
@@ -136,10 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Amarillo no es mayor a rojo")
             }
         }
-        else if (event.key === 'R') {
-            var inputVerde = document.getElementsByClassName('inputVerde');
-            inputVerde.innerHTML = '00:00:00'
-            
+        else if (event.key === 'r' || event.key === 'R') {
+            reiniciarTemporizador()
         }
         else if (event.key === ' '){
             if (temporizadorPausado) {
