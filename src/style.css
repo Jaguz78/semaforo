@@ -77,4 +77,14 @@ main p{
     font-size: 1em;
 }
 
+.notification {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.error {
+    background-color: #f44336;
+    color: white;
+}
 

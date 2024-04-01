@@ -144,14 +144,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     //Si los input son mayores que el input verde o entre sí, salta error
                     else {
+                        mostrarNotificacion('Error, verde no es mayor que rojo', 'error');
                         console.log("Verde no es mayor que rojo")
                     }
                 }
                 else {
+                    mostrarNotificacion('Error, amarillo no es menor que verde', 'error');
                     console.log("Amarillo no es menor que verde")
                 }
             }
             else {
+                mostrarNotificacion('Error, amarillo no es mayor que rojo', 'error');
                 console.log("Amarillo no es mayor a rojo")
             }
         }
@@ -167,5 +170,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
     
+    function mostrarNotificacion(mensaje, tipo) {
+        // Crear elemento de notificación
+        var notificacion = document.createElement('div');
+        notificacion.textContent = mensaje;
+        notificacion.classList.add('notification', tipo);
+    
+        
+        var contenedor = document.getElementById('notification-container');
+        contenedor.appendChild(notificacion);
+    
+        
+        setTimeout(function() {
+            contenedor.removeChild(notificacion);
+        }, 3000);
+    }
 })
 
