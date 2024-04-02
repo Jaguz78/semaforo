@@ -133,29 +133,34 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(nAmarillo)
             console.log(nRojo)
 
-            if(nAmarillo > nRojo){
-                if (nAmarillo < nVerde) {
-                    if (nVerde > nRojo) {
-                        //Si todos los input son menores que el input verde pasa esto
-                        localStorage.setItem('inputVerde', valorInputVerde);
-                        localStorage.setItem('inputAmarillo', valorInputAmarillo);
-                        localStorage.setItem('inputRojo', valorInputRojo);
-                        iniciarTemporizador(nVerde, nAmarillo, nRojo);
+            if(isNaN(nVerde.getTime()) || isNaN(nAmarillo.getTime()) || isNaN(nRojo.getTime())) {
+                mostrarNotificacion('Error, revise que las entradas sean solo números', 'error');
+            }
+            else {
+                if(nAmarillo > nRojo){
+                    if (nAmarillo < nVerde) {
+                        if (nVerde > nRojo) {
+                            //Si todos los input son menores que el input verde pasa esto
+                            localStorage.setItem('inputVerde', valorInputVerde);
+                            localStorage.setItem('inputAmarillo', valorInputAmarillo);
+                            localStorage.setItem('inputRojo', valorInputRojo);
+                            iniciarTemporizador(nVerde, nAmarillo, nRojo);
+                        }
+                        //Si los input son mayores que el input verde o entre sí, salta error
+                        else {
+                            mostrarNotificacion('Error, verde no es mayor que rojo', 'error');
+                            console.log("Verde no es mayor que rojo")
+                        }
                     }
-                    //Si los input son mayores que el input verde o entre sí, salta error
                     else {
-                        mostrarNotificacion('Error, verde no es mayor que rojo', 'error');
-                        console.log("Verde no es mayor que rojo")
+                        mostrarNotificacion('Error, amarillo no es menor que verde', 'error');
+                        console.log("Amarillo no es menor que verde")
                     }
                 }
                 else {
-                    mostrarNotificacion('Error, amarillo no es menor que verde', 'error');
-                    console.log("Amarillo no es menor que verde")
+                    mostrarNotificacion('Error, amarillo no es mayor que rojo', 'error');
+                    console.log("Amarillo no es mayor a rojo")
                 }
-            }
-            else {
-                mostrarNotificacion('Error, amarillo no es mayor que rojo', 'error');
-                console.log("Amarillo no es mayor a rojo")
             }
         }
         else if (event.key === 'r' || event.key === 'R') {
@@ -185,5 +190,6 @@ document.addEventListener('DOMContentLoaded', function() {
             contenedor.removeChild(notificacion);
         }, 3000);
     }
+
 })
 
