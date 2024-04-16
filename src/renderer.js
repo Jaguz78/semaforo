@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function iniciarTemporizador(verde, amarillo, rojo) {
         var temporizador = document.querySelector('.temporizador');
-        
-        
+		var amarilloString = localStorage.getItem('inputAmarillo');
+		var rojoString = localStorage.getItem('inputRojo');
+
         //Actualizar el temporizador
         function actualizarTemporizador(tiempo) {
             var horas = tiempo.getHours().toString().padStart(2, '0');
@@ -21,20 +22,23 @@ document.addEventListener('DOMContentLoaded', function() {
             var segundos = tiempo.getSeconds().toString().padStart(2, '0');
             temporizador.textContent = horas + ':' + minutos + ':' + segundos;
         }
-    
+        
         //Temporizador verde
+        alert("empezara verde")
         intervaloVerde = setInterval(function() {
             verde.setSeconds(verde.getSeconds() - 1);
             actualizarTemporizador(verde);
-            if (temporizador.textContent === "00:00:00") {
+            if (temporizador.textContent === amarilloString) {
                 clearInterval(intervaloVerde);
                 //Temporizador amarillo
+                alert("empezara amarillo")
                 intervaloAmarillo = setInterval(function() {
                     amarillo.setSeconds(amarillo.getSeconds() - 1);
                     actualizarTemporizador(amarillo);
-                    if (temporizador.textContent === "00:00:00") {
+                    if (temporizador.textContent === rojoString) {
                         clearInterval(intervaloAmarillo);
                         //Temporizador rojo
+                        alert("empezara rojo")
                         intervaloRojo = setInterval(function() {
                             rojo.setSeconds(rojo.getSeconds() - 1);
                             actualizarTemporizador(rojo);
