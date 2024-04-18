@@ -78,6 +78,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     }
 
+    function reiniciarTemporizador() {
+        alert("¡Se ha reiniciado el temporizador!")
+        clearInterval(intervaloVerde);
+        clearInterval(intervaloAmarillo);
+        clearInterval(intervaloRojo);
+    
+        document.querySelector('.temporizador').textContent = '00:00:00';
+        tiempoRestante = 0;
+        temporizadorPausado = false;
+    }
+
     function obtenerTiempoRestante() {
         var tiempoActual = document.querySelector('.temporizador').textContent;
         var tiempo = tiempoActual.split(':');
@@ -91,26 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return new Date(0, 0, 0, horas, minutos, segundos);
     }
 	
-	function reiniciarTemporizador() {
-		clearInterval(intervaloVerde);
-		clearInterval(intervaloAmarillo);
-		clearInterval(intervaloRojo);
-
-		var verdeString = localStorage.getItem('inputVerde');
-		var amarilloString = localStorage.getItem('inputAmarillo');
-		var rojoString = localStorage.getItem('inputRojo');
-
-		var verde = verdeString ? new Date(0, 0, 0, ...verdeString.split(':')) : new Date();
-		var amarillo = amarilloString ? new Date(0, 0, 0, ...amarilloString.split(':')) : new Date();
-		var rojo = rojoString ? new Date(0, 0, 0, ...rojoString.split(':')) : new Date();
-
-		iniciarTemporizador(verde, amarillo, rojo);
-
-		tiempoRestante = 0;
-		temporizadorPausado = false;
-	}
     
-    document.addEventListener('keypress', function(event){
+    document.addEventListener('keyup', function(event){
         
         if (event.key === 'Enter'){
             var inputVerde = document.getElementsByClassName('inputVerde');
