@@ -24,21 +24,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         //Temporizador verde
-        alert("empezara verde")
+        actualizarTemporizador(verde);
+        document.body.classList.add('verde'); //Cambiar a verde
         intervaloVerde = setInterval(function() {
             verde.setSeconds(verde.getSeconds() - 1);
             actualizarTemporizador(verde);
             if (temporizador.textContent === amarilloString) {
                 clearInterval(intervaloVerde);
                 //Temporizador amarillo
-                alert("empezara amarillo")
+                document.body.classList.add('amarillo'); //Cambia a amarillo
                 intervaloAmarillo = setInterval(function() {
                     amarillo.setSeconds(amarillo.getSeconds() - 1);
                     actualizarTemporizador(amarillo);
                     if (temporizador.textContent === rojoString) {
                         clearInterval(intervaloAmarillo);
                         //Temporizador rojo
-                        alert("empezara rojo")
+                        document.body.classList.add('rojo'); //Cambia a rojo
                         intervaloRojo = setInterval(function() {
                             rojo.setSeconds(rojo.getSeconds() - 1);
                             actualizarTemporizador(rojo);
@@ -102,7 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return new Date(0, 0, 0, horas, minutos, segundos);
     }
 	
-    
+    //Ocultar cosas al inicio
+    document.querySelector('.R').classList.add('oculto');
+    document.querySelector('.pausa').classList.add('oculto');
     document.addEventListener('keyup', function(event){
         
         if (event.key === 'Enter'){
@@ -141,6 +144,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             localStorage.setItem('inputVerde', valorInputVerde);
                             localStorage.setItem('inputAmarillo', valorInputAmarillo);
                             localStorage.setItem('inputRojo', valorInputRojo);
+                            //Mostrar cosas al iniciar el temporizador
+                            document.querySelector('.R').classList.remove('oculto');
+                            document.querySelector('.pausa').classList.remove('oculto');
+                            //Ocultar cosas al iniciar el temporizador
+                            document.querySelector('header').classList.add('oculto');
+                            document.querySelector('.espacio').classList.add('oculto');
                             iniciarTemporizador(nVerde, nAmarillo, nRojo);
                         }
                         //Si los input son mayores que el input verde o entre sí, salta error

@@ -4,23 +4,24 @@ body, input{
     font-style: normal;
 
     color: #636E72;
-    background-color: #2D3436;
-
-    /*cambia segun el tiempo:
-    verde
-    color: #8AE17D;             
-    background-color: #44BD32;
-
-    amarillo 
-    color: #C6A11E;                    
-    background-color: #F9CA24;
-
-    rojo
-    color: #A43B21;             
-    background-color: #E84118;
-    */
-    
+    background-color: #2D3436;    
 }
+
+.verde {
+    color: #8AE17D;
+    background-color: #44BD32;
+}
+
+.amarillo {
+    color: #C6A11E;
+    background-color: #F9CA24;
+}
+
+.rojo {
+    color: #A43B21;
+    background-color: #E84118;
+}
+
 
 h1 {
     color: #F5F6FA;
@@ -67,7 +68,7 @@ h1 {
 }
 
 main .temporizador{
-    margin:10%;
+    margin: 7%;
     text-align: center;
     font-size: 6em;
 }
@@ -87,4 +88,9 @@ main p{
     background-color: #f44336;
     color: white;
 }
+
+.oculto {
+    display: none;
+}
+
 
