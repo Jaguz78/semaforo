@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var temporizadorEnEjecucion = false;
     viejoVerde = localStorage.getItem('inputVerde');
     console.log(viejoVerde)
     viejoAmarillo = localStorage.getItem('inputAmarillo')
@@ -46,6 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             if (temporizador.textContent === "00:00:00") {
                                 clearInterval(intervaloRojo);
                                 temporizador.textContent = '00:00:00';
+                                document.querySelector('header').classList.remove('oculto');
+                                document.querySelector('.espacio').classList.remove('oculto1');
+                                document.querySelector('.R').classList.add('oculto1');
+                                document.querySelector('.pausa').classList.add('oculto1');
+                                document.body.classList.remove('verde', 'amarillo', 'rojo');
+                                temporizadorEnEjecucion = false;
                             }
                         }, 1000);
                     }
@@ -80,12 +87,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function reiniciarTemporizador() {
-        alert("¡Se ha reiniciado el temporizador!")
         clearInterval(intervaloVerde);
         clearInterval(intervaloAmarillo);
         clearInterval(intervaloRojo);
+        document.querySelector('header').classList.remove('oculto');
+        document.querySelector('.espacio').classList.remove('oculto');
+        document.querySelector('.R').classList.add('oculto');
+        document.querySelector('.pausa').classList.add('oculto');
+        document.body.classList.remove('verde', 'amarillo', 'rojo');
     
         document.querySelector('.temporizador').textContent = '00:00:00';
+        temporizadorEnEjecucion = false;
         tiempoRestante = 0;
         temporizadorPausado = false;
     }
@@ -107,8 +119,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.R').classList.add('oculto');
     document.querySelector('.pausa').classList.add('oculto');
     document.addEventListener('keyup', function(event){
-        
-        if (event.key === 'Enter'){
+
+        if (event.key === 'Enter' && !temporizadorEnEjecucion){
+            temporizadorEnEjecucion = true;
             var inputVerde = document.getElementsByClassName('inputVerde');
             var valorInputVerde = inputVerde[0].value
             console.log(valorInputVerde)
