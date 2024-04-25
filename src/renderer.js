@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 clearInterval(intervaloRojo);
                                 temporizador.textContent = '00:00:00';
                                 document.querySelector('header').classList.remove('oculto');
-                                document.querySelector('.espacio').classList.remove('oculto1');
-                                document.querySelector('.R').classList.add('oculto1');
-                                document.querySelector('.pausa').classList.add('oculto1');
+                                document.querySelector('.espacio').classList.remove('oculto');
+                                document.querySelector('.R').classList.add('oculto');
+                                document.querySelector('.pausa').classList.add('oculto');
                                 document.body.classList.remove('verde', 'amarillo', 'rojo');
                                 temporizadorEnEjecucion = false;
                             }
@@ -148,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if(isNaN(nVerde.getTime()) || isNaN(nAmarillo.getTime()) || isNaN(nRojo.getTime())) {
                 mostrarNotificacion('Error, revise que las entradas sean solo números', 'error');
+                temporizadorEnEjecucion = false;
             }
             else {
                 if(nAmarillo > nRojo){
@@ -169,16 +170,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         else {
                             mostrarNotificacion('Error, verde no es mayor que rojo', 'error');
                             console.log("Verde no es mayor que rojo")
+                            temporizadorEnEjecucion = false;
                         }
                     }
                     else {
                         mostrarNotificacion('Error, amarillo no es menor que verde', 'error');
                         console.log("Amarillo no es menor que verde")
+                        temporizadorEnEjecucion = false;
                     }
                 }
                 else {
                     mostrarNotificacion('Error, amarillo no es mayor que rojo', 'error');
                     console.log("Amarillo no es mayor a rojo")
+                    temporizadorEnEjecucion = false;
                 }
             }
         }
