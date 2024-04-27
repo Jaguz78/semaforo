@@ -46,13 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             actualizarTemporizador(rojo);
                             if (temporizador.textContent === "00:00:00") {
                                 clearInterval(intervaloRojo);
-                                temporizador.textContent = '00:00:00';
-                                document.querySelector('header').classList.remove('oculto');
-                                document.querySelector('.espacio').classList.remove('oculto');
-                                document.querySelector('.R').classList.add('oculto');
-                                document.querySelector('.pausa').classList.add('oculto');
-                                document.body.classList.remove('verde', 'amarillo', 'rojo');
-                                temporizadorEnEjecucion = false;
+                                temporizador.textContent = '¡SE ACABO EL TIEMPO!';
                             }
                         }, 1000);
                     }
