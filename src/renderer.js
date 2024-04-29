@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   clearInterval(intervaloRojo);
                   document.querySelector(".pausa").classList.add("oculto");
                   temporizador.textContent = "¡SE ACABO EL TIEMPO!";
+                  temporizador.style.fontSize = "6em";
                 }
               }, 1000);
             }
@@ -72,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
               clearInterval(intervaloRojo);
               document.querySelector(".pausa").classList.add("oculto");
               temporizador.textContent = "¡SE ACABO EL TIEMPO!";
+              temporizador.style.fontSize = "6em";
             }
           }, 1000);
         }
@@ -86,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
           clearInterval(intervaloRojo);
           document.querySelector(".pausa").classList.add("oculto");
           temporizador.textContent = "¡SE ACABO EL TIEMPO!";
+          temporizador.style.fontSize = "6em";
         }
       }, 1000);
     }
@@ -171,6 +174,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector(".pausa").classList.add("oculto");
   document.addEventListener("keyup", function (event) {
     if (event.key === "Enter" && !temporizadorEnEjecucion) {
+      var temporizador = document.querySelector(".temporizador");
+      temporizador.style.fontSize = "12em";
       temporizadorEnEjecucion = true;
       var inputVerde = document.getElementsByClassName("inputVerde");
       var valorInputVerde = inputVerde[0].value;
@@ -206,9 +211,11 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         temporizadorEnEjecucion = false;
       } else {
+      if(valorInputRojo !== "00:00:00"){ 
         if (nAmarillo > nRojo) {
           if (nAmarillo < nVerde) {
             if (nVerde > nRojo) {
+              console.log(valorInputRojo)
               //Si todos los input son menores que el input verde pasa esto
               localStorage.setItem("inputVerde", valorInputVerde);
               localStorage.setItem("inputAmarillo", valorInputAmarillo);
@@ -240,14 +247,21 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log("Amarillo no es mayor a rojo");
           temporizadorEnEjecucion = false;
         }
-      }
+        } else {
+          mostrarNotificacion("Error, rojo no puede tener un valor 0", "error");
+          console.log("Rojo es igual a 0");
+          temporizadorEnEjecucion = false;
+        }
+    }
     } else if (
       (event.key === "r" || event.key === "R") &&
       temporizadorEnEjecucion
     ) {
+      var temporizador = document.querySelector(".temporizador");
+      temporizador.style.fontSize = "6em";
       reiniciarTemporizador();
     } else if (event.key === " " && temporizadorEnEjecucion) {
-      if (temporizador.textContent !== "¡SE ACABO EL TIEMPO!") {
+      if (document.querySelector(".temporizador").textContent !== "¡SE ACABO EL TIEMPO!") {
         if (temporizadorPausado) {
           reanudarTemporizador();
         } else {
